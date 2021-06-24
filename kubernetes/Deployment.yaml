@@ -15,7 +15,10 @@ metadata:
           'f:progressDeadlineSeconds': {}
           'f:replicas': {}
           'f:revisionHistoryLimit': {}
-          'f:selector': {}
+          'f:selector':
+            'f:matchLabels':
+              .: {}
+              'f:app': {}
           'f:strategy':
             'f:rollingUpdate':
               .: {}
@@ -31,6 +34,7 @@ metadata:
               'f:containers':
                 'k:{"name":"gke-01-sha256-1"}':
                   .: {}
+                  'f:image': {}
                   'f:imagePullPolicy': {}
                   'f:name': {}
                   'f:resources': {}
@@ -43,7 +47,7 @@ metadata:
               'f:terminationGracePeriodSeconds': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2021-06-24T08:12:51Z'
+      time: '2021-06-24T17:49:19Z'
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -74,41 +78,10 @@ metadata:
           'f:observedGeneration': {}
           'f:readyReplicas': {}
           'f:replicas': {}
-          'f:unavailableReplicas': {}
           'f:updatedReplicas': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2021-06-24T08:29:16Z'
-    - apiVersion: apps/v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            'f:gcb-build-id': {}
-            'f:gcb-trigger-id': {}
-            'f:kubectl.kubernetes.io/last-applied-configuration': {}
-          'f:labels':
-            'f:app.kubernetes.io/managed-by': {}
-            'f:app.kubernetes.io/name': {}
-            'f:app.kubernetes.io/version': {}
-        'f:spec':
-          'f:template':
-            'f:metadata':
-              'f:annotations':
-                .: {}
-                'f:gcb-build-id': {}
-                'f:gcb-trigger-id': {}
-              'f:labels':
-                'f:app.kubernetes.io/managed-by': {}
-                'f:app.kubernetes.io/name': {}
-                'f:app.kubernetes.io/version': {}
-            'f:spec':
-              'f:containers':
-                'k:{"name":"gke-01-sha256-1"}':
-                  'f:image': {}
-      manager: kubectl-client-side-apply
-      operation: Update
-      time: '2021-06-24T08:29:16Z'
+      time: '2021-06-24T17:49:28Z'
   name: nginx-1
   namespace: default
 spec:
@@ -127,7 +100,7 @@ spec:
         app: nginx-1
     spec:
       containers:
-        - image: gcr.io/manu-gcp-demos/github.com/manu-gcp-demos/gke-01
+        - image: gcr.io/gcp-labs-278619/github_manu-gcp-demos_gke-01
           imagePullPolicy: IfNotPresent
           name: gke-01-sha256-1
 ---
@@ -154,7 +127,7 @@ metadata:
             'f:name': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2021-06-24T08:12:51Z'
+      time: '2021-06-24T17:49:19Z'
     - apiVersion: autoscaling/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -166,24 +139,8 @@ metadata:
           'f:currentReplicas': {}
       manager: vpa-recommender
       operation: Update
-      time: '2021-06-24T08:13:08Z'
-    - apiVersion: autoscaling/v2beta1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            .: {}
-            'f:gcb-build-id': {}
-            'f:gcb-trigger-id': {}
-            'f:kubectl.kubernetes.io/last-applied-configuration': {}
-          'f:labels':
-            'f:app.kubernetes.io/managed-by': {}
-            'f:app.kubernetes.io/name': {}
-            'f:app.kubernetes.io/version': {}
-      manager: kubectl-client-side-apply
-      operation: Update
-      time: '2021-06-24T08:29:17Z'
-  name: nginx-1-hpa-gh8p
+      time: '2021-06-24T17:49:35Z'
+  name: nginx-1-hpa-scvz
   namespace: default
 spec:
   maxReplicas: 5
@@ -231,7 +188,7 @@ metadata:
           'f:type': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2021-06-24T08:14:40Z'
+      time: '2021-06-24T18:04:12Z'
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -244,31 +201,14 @@ metadata:
             'f:ingress': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2021-06-24T08:15:29Z'
-    - apiVersion: v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            'f:gcb-build-id': {}
-            'f:gcb-trigger-id': {}
-            'f:kubectl.kubernetes.io/last-applied-configuration': {}
-          'f:labels':
-            'f:app.kubernetes.io/managed-by': {}
-            'f:app.kubernetes.io/name': {}
-            'f:app.kubernetes.io/version': {}
-      manager: kubectl-client-side-apply
-      operation: Update
-      time: '2021-06-24T08:29:17Z'
+      time: '2021-06-24T18:05:06Z'
   name: nginx-1-service
   namespace: default
 spec:
-  clusterIP: 10.8.12.78
-  clusterIPs:
-    - 10.8.12.78
+  clusterIP: 10.64.13.69
   externalTrafficPolicy: Cluster
   ports:
-    - nodePort: 31025
+    - nodePort: 31412
       port: 80
       protocol: TCP
       targetPort: 8080
