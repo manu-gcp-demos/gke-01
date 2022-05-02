@@ -1,4 +1,4 @@
-capiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -97,7 +97,7 @@ spec:
         app: demo-001
     spec:
       containers:
-        - image: gcr.io/gcp-labs-278619/github_manu-gcp-demos_gke-01
+        - image: gcr.io/gcp-labs-278619/github.com/manu-gcp-demos/gke-01
           imagePullPolicy: IfNotPresent
           name: gke-01-sha256-1
 ---
