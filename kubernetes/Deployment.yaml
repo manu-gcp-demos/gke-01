@@ -1,8 +1,8 @@
-apiVersion: apps/v1
+capiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: demo01
+    app: demo-001
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
@@ -44,7 +44,7 @@ metadata:
               'f:terminationGracePeriodSeconds': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2022-05-02T16:34:49Z'
+      time: '2022-05-02T17:41:24Z'
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -78,14 +78,14 @@ metadata:
           'f:updatedReplicas': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2022-05-02T16:34:52Z'
-  name: demo01
+      time: '2022-05-02T17:41:32Z'
+  name: demo-001
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: demo01
+      app: demo-001
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -94,10 +94,10 @@ spec:
   template:
     metadata:
       labels:
-        app: demo01
+        app: demo-001
     spec:
       containers:
-        - image: gcr.io/gcp-labs-278619/github.com/manu-gcp-demos/gke-01
+        - image: gcr.io/gcp-labs-278619/github_manu-gcp-demos_gke-01
           imagePullPolicy: IfNotPresent
           name: gke-01-sha256-1
 ---
@@ -105,7 +105,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    app: demo01
+    app: demo-001
   managedFields:
     - apiVersion: autoscaling/v2beta1
       fieldsType: FieldsV1
@@ -124,7 +124,7 @@ metadata:
             'f:name': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2022-05-02T16:34:49Z'
+      time: '2022-05-02T17:41:24Z'
     - apiVersion: autoscaling/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -138,8 +138,8 @@ metadata:
           'f:desiredReplicas': {}
       manager: vpa-recommender
       operation: Update
-      time: '2022-05-02T16:35:05Z'
-  name: demo01-hpa-81ox
+      time: '2022-05-02T17:41:41Z'
+  name: demo-001-hpa-6eqm
   namespace: default
 spec:
   maxReplicas: 5
@@ -152,7 +152,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: demo01
+    name: demo-001
 ---
 apiVersion: v1
 kind: Service
@@ -162,7 +162,7 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    app: demo01
+    app: demo-001
   managedFields:
     - apiVersion: v1
       fieldsType: FieldsV1
@@ -187,7 +187,7 @@ metadata:
           'f:type': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2022-05-02T16:35:44Z'
+      time: '2022-05-02T17:42:19Z'
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -200,23 +200,23 @@ metadata:
             'f:ingress': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2022-05-02T16:36:21Z'
-  name: demo01-service
+      time: '2022-05-02T17:42:52Z'
+  name: demo-001-service
   namespace: default
 spec:
-  clusterIP: 10.8.3.19
+  clusterIP: 10.44.0.118
   clusterIPs:
-    - 10.8.3.19
+    - 10.44.0.118
   externalTrafficPolicy: Cluster
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-    - nodePort: 30928
+    - nodePort: 31520
       port: 80
       protocol: TCP
       targetPort: 8080
   selector:
-    app: demo01
+    app: demo-001
   sessionAffinity: None
   type: LoadBalancer
