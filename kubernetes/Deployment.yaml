@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: demo-001
+    app: demo
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
@@ -29,7 +29,7 @@ metadata:
                 'f:app': {}
             'f:spec':
               'f:containers':
-                'k:{"name":"gke-01-sha256-1"}':
+                'k:{"name":"github-manu-gcp-demos-gke-01-sha256-1"}':
                   .: {}
                   'f:image': {}
                   'f:imagePullPolicy': {}
@@ -44,7 +44,7 @@ metadata:
               'f:terminationGracePeriodSeconds': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2022-05-02T17:41:24Z'
+      time: '2022-07-13T21:00:09Z'
     - apiVersion: apps/v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -78,14 +78,15 @@ metadata:
           'f:updatedReplicas': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2022-05-02T17:41:32Z'
-  name: demo-001
+      subresource: status
+      time: '2022-07-13T21:00:18Z'
+  name: demo
   namespace: default
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: demo-001
+      app: demo
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -94,18 +95,18 @@ spec:
   template:
     metadata:
       labels:
-        app: demo-001
+        app: demo
     spec:
       containers:
-        - image: gcr.io/gcp-labs-278619/github.com/manu-gcp-demos/gke-01
+        - image: gcr.io/gcp-labs-278619/github_manu-gcp-demos_gke-01
           imagePullPolicy: IfNotPresent
-          name: gke-01-sha256-1
+          name: github-manu-gcp-demos-gke-01-sha256-1
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    app: demo-001
+    app: demo
   managedFields:
     - apiVersion: autoscaling/v2beta1
       fieldsType: FieldsV1
@@ -124,22 +125,20 @@ metadata:
             'f:name': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2022-05-02T17:41:24Z'
-    - apiVersion: autoscaling/v1
+      time: '2022-07-13T21:00:09Z'
+    - apiVersion: autoscaling/v2beta2
       fieldsType: FieldsV1
       fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            .: {}
-            'f:autoscaling.alpha.kubernetes.io/conditions': {}
-            'f:autoscaling.alpha.kubernetes.io/current-metrics': {}
         'f:status':
+          'f:conditions': {}
+          'f:currentMetrics': {}
           'f:currentReplicas': {}
           'f:desiredReplicas': {}
       manager: vpa-recommender
       operation: Update
-      time: '2022-05-02T17:41:41Z'
-  name: demo-001-hpa-6eqm
+      subresource: status
+      time: '2022-07-13T21:00:25Z'
+  name: demo-hpa-8msx
   namespace: default
 spec:
   maxReplicas: 5
@@ -152,7 +151,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: demo-001
+    name: demo
 ---
 apiVersion: v1
 kind: Service
@@ -162,7 +161,7 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    app: demo-001
+    app: demo
   managedFields:
     - apiVersion: v1
       fieldsType: FieldsV1
@@ -172,7 +171,9 @@ metadata:
             .: {}
             'f:app': {}
         'f:spec':
+          'f:allocateLoadBalancerNodePorts': {}
           'f:externalTrafficPolicy': {}
+          'f:internalTrafficPolicy': {}
           'f:ports':
             .: {}
             'k:{"port":80,"protocol":"TCP"}':
@@ -180,14 +181,12 @@ metadata:
               'f:port': {}
               'f:protocol': {}
               'f:targetPort': {}
-          'f:selector':
-            .: {}
-            'f:app': {}
+          'f:selector': {}
           'f:sessionAffinity': {}
           'f:type': {}
       manager: GoogleCloudConsole
       operation: Update
-      time: '2022-05-02T17:42:19Z'
+      time: '2022-07-13T21:01:29Z'
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
@@ -200,23 +199,26 @@ metadata:
             'f:ingress': {}
       manager: kube-controller-manager
       operation: Update
-      time: '2022-05-02T17:42:52Z'
-  name: demo-001-service
+      subresource: status
+      time: '2022-07-13T21:02:02Z'
+  name: demo-service
   namespace: default
 spec:
-  clusterIP: 10.44.0.118
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.8.11.86
   clusterIPs:
-    - 10.44.0.118
+    - 10.8.11.86
   externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-    - nodePort: 31520
+    - nodePort: 30345
       port: 80
       protocol: TCP
       targetPort: 8080
   selector:
-    app: demo-001
+    app: demo
   sessionAffinity: None
   type: LoadBalancer
